@@ -3,7 +3,6 @@ import { PhilosophySection } from "@/components/sections/philosophy";
 import { MenuSection } from "@/components/sections/menu";
 import { ProcessSection } from "@/components/sections/process";
 import { TestimonialSection } from "@/components/sections/testimonials";
-import { ReservationSection } from "@/components/sections/reservation";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 
@@ -17,7 +16,6 @@ export default function Home() {
         <MenuSection />
         <ProcessSection />
         <TestimonialSection />
-        <ReservationSection />
       </main>
       <Footer />
     </div>

@@ -1,6 +1,7 @@
 import { useScroll } from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/premium-button";
+import { ORDER_URL } from "@/lib/order";
 
 export function Navbar() {
   const { scrolled } = useScroll();
@@ -41,13 +42,11 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <Button 
-              size="sm" 
-              variant="primary" 
-              onClick={() => scrollToSection("reservierung")}
-            >
-              Reservieren
-            </Button>
+            <a href={ORDER_URL} target="_blank" rel="noopener noreferrer">
+              <Button size="sm" variant="primary">
+                Jetzt bestellen
+              </Button>
+            </a>
           </div>
         </div>
       </div>

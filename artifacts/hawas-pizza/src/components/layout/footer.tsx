@@ -1,4 +1,6 @@
 import { FadeIn } from "@/components/animations/fade-in";
+import { Button } from "@/components/ui/premium-button";
+import { ORDER_URL } from "@/lib/order";
 
 export function Footer() {
   return (
@@ -7,10 +9,15 @@ export function Footer() {
         <FadeIn className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
           <div className="col-span-1 md:col-span-2">
             <h3 className="text-2xl font-bold tracking-tight mb-6">Hawas Pizza.</h3>
-            <p className="text-background/60 max-w-sm text-sm leading-relaxed">
+            <p className="text-background/60 max-w-sm text-sm leading-relaxed mb-8">
               Handwerkliche Steinofenpizza in Hamburg-Barmbek. 
-              Kompromisslose Frische, puristischer Geschmack.
+              Nur zur Abholung oder Lieferung – kompromisslose Frische, puristischer Geschmack.
             </p>
+            <a href={ORDER_URL} target="_blank" rel="noopener noreferrer">
+              <Button size="md" className="bg-background text-foreground hover:bg-background/90">
+                Jetzt bestellen
+              </Button>
+            </a>
           </div>
           
           <div>
