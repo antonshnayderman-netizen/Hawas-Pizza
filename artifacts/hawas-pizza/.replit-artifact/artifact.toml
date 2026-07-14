@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Hawas Pizza"
+version = "1.0.0"
+id = "artifacts/hawas-pizza"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22504
+
+[services.development]
+run = "pnpm --filter @workspace/hawas-pizza run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/hawas-pizza", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/hawas-pizza/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22504"
+BASE_PATH = "/"
