@@ -82,11 +82,23 @@ const DESSERT: MenuItem[] = [
   { name: "Erdbeeren Mascarpone", price: "6,90", desc: "Frische Erdbeeren, Mascarponecreme, Keksbrösel – hausgemacht." },
 ];
 
-function MenuGroup({ title, items, delay = 0 }: { title: string; items: MenuItem[]; delay?: number }) {
+function MenuGroup({
+  title,
+  items,
+  delay = 0,
+  showTitle = true,
+}: {
+  title: string;
+  items: MenuItem[];
+  delay?: number;
+  showTitle?: boolean;
+}) {
   return (
     <FadeIn delay={delay} direction="up">
       <div>
-        <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-8">{title}</h3>
+        {showTitle && (
+          <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-8">{title}</h3>
+        )}
         <div className="space-y-6">
           {items.map((item) => (
             <div key={item.name} className="group flex flex-col">
@@ -103,6 +115,20 @@ function MenuGroup({ title, items, delay = 0 }: { title: string; items: MenuItem
       </div>
     </FadeIn>
   );
+}
+
+/** Splits a list into `n` contiguous chunks of near-equal size (last chunks absorb the remainder). */
+function splitEvenly<T>(items: T[], n: number): T[][] {
+  const base = Math.floor(items.length / n);
+  const remainder = items.length % n;
+  const chunks: T[][] = [];
+  let offset = 0;
+  for (let i = 0; i < n; i++) {
+    const size = base + (i < remainder ? 1 : 0);
+    chunks.push(items.slice(offset, offset + size));
+    offset += size;
+  }
+  return chunks;
 }
 
 export function MenuSection() {
@@ -149,15 +175,24 @@ export function MenuSection() {
           </FadeIn>
         </div>
 
-        {/* Full Menu */}
+        {/* Pizza · 32 cm — split into three evenly balanced columns */}
+        <FadeIn direction="up">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-8">Pizza · 32 cm</h3>
+        </FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 mb-24">
+          {splitEvenly(PIZZA, 3).map((column, i) => (
+            <MenuGroup key={i} title="Pizza · 32 cm" items={column} delay={i * 0.05} showTitle={false} />
+          ))}
+        </div>
+
+        {/* Pasta, Vorspeisen & Salate, Dessert */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
-          <MenuGroup title="Pizza · 32 cm" items={PIZZA} delay={0} />
-          <MenuGroup title="Pasta" items={PASTA} delay={0.05} />
+          <MenuGroup title="Pasta" items={PASTA} delay={0} />
           <div className="space-y-16">
-            <MenuGroup title="Vorspeisen" items={VORSPEISEN} delay={0.1} />
-            <MenuGroup title="Salate" items={SALATE} delay={0.15} />
-            <MenuGroup title="Dessert" items={DESSERT} delay={0.2} />
+            <MenuGroup title="Vorspeisen" items={VORSPEISEN} delay={0.05} />
+            <MenuGroup title="Salate" items={SALATE} delay={0.1} />
           </div>
+          <MenuGroup title="Dessert" items={DESSERT} delay={0.15} />
         </div>
 
         <FadeIn delay={0.3}>

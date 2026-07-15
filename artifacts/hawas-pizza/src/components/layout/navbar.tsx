@@ -2,6 +2,7 @@ import { useScroll } from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/premium-button";
 import { ORDER_URL } from "@/lib/order";
+import logoUrl from "@assets/hawas-logo.png";
 
 export function Navbar() {
   const { scrolled } = useScroll();
@@ -22,11 +23,12 @@ export function Navbar() {
     >
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex items-center justify-between">
-          <button 
+          <button
             onClick={() => scrollToSection("hero")}
-            className="text-xl font-bold tracking-tighter"
+            className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
           >
-            Hawas Pizza.
+            <img src={logoUrl} alt="Hawas Pizza Logo" className="w-8 h-8 object-contain invert dark:invert-0" />
+            <span className="text-xl font-bold tracking-tighter">Hawas Pizza</span>
           </button>
 
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
