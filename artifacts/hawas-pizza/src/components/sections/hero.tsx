@@ -18,7 +18,7 @@ export function HeroSection() {
   const contentY = useTransform(scrollYProgress, [0, 0.7], ["0%", "-6%"]);
 
   return (
-    <section ref={sectionRef} id="hero" className="relative h-[320vh]">
+    <section ref={sectionRef} id="hero" className="relative h-[160vh]">
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center pt-20">
         {/* Scroll-scrubbed frame sequence */}
         <div className="absolute inset-0 z-0">
@@ -61,21 +61,23 @@ export function HeroSection() {
 
             {/* Discount badges */}
             <FadeIn delay={0.5} direction="up">
-              <div className="flex flex-wrap gap-3 mb-8">
-                <span className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm border border-white/25 text-white text-xs font-medium px-3 py-1.5 rounded-full">
-                  <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  25% Rabatt bei Selbstabholung
-                </span>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-8">
+                <div className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-sm border border-white/35 text-white px-5 py-3 rounded-xl">
+                  <span className="text-2xl font-black leading-none">25%</span>
+                  <div className="flex flex-col leading-tight">
+                    <span className="text-sm font-semibold">Rabatt</span>
+                    <span className="text-xs text-white/80">bei Selbstabholung</span>
+                  </div>
+                </div>
                 <a
                   href="tel:04079167456"
-                  className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm border border-white/25 text-white text-xs font-medium px-3 py-1.5 rounded-full hover:bg-white/25 transition-colors"
+                  className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-sm border border-white/35 text-white px-5 py-3 rounded-xl hover:bg-white/30 transition-colors group"
                 >
-                  <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  10% Rabatt telefonisch · 040-79167456
+                  <span className="text-2xl font-black leading-none">10%</span>
+                  <div className="flex flex-col leading-tight">
+                    <span className="text-sm font-semibold">Rabatt telefonisch</span>
+                    <span className="text-xs text-white/80 group-hover:text-white/95 transition-colors font-mono tracking-wide">040-79167456</span>
+                  </div>
                 </a>
               </div>
             </FadeIn>
