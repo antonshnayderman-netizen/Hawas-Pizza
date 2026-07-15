@@ -18,7 +18,7 @@ export function HeroSection() {
   const contentY = useTransform(scrollYProgress, [0, 0.7], ["0%", "-6%"]);
 
   return (
-    <section ref={sectionRef} id="hero" className="relative h-[160vh]">
+    <section ref={sectionRef} id="hero" className="relative h-[200vh]">
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center pt-20">
         {/* Scroll-scrubbed frame sequence */}
         <div className="absolute inset-0 z-0">
