@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 
 const FRAME_COUNT = 151;
+/** Lerp factor per frame — higher = snappier, lower = smoother/laggier */
+const LERP = 0.1;
 
 function frameUrl(base: string, index: number) {
   const n = String(index).padStart(3, "0");
@@ -12,22 +14,23 @@ interface HeroCanvasProps {
   targetRef: React.RefObject<HTMLElement | null>;
 }
 
-/**
- * Sticky, full-viewport canvas that scrubs through a pre-extracted frame
- * sequence (30fps) as the user scrolls through the hero section — the
- * pizza's 360° turn plays out entirely under scroll control, Apple-style.
- */
 export function HeroCanvas({ targetRef }: HeroCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  const currentFrameRef = useRef(1);
+
+  // float target index (1–151) set by scroll
+  const targetFrameRef = useRef(1);
+  // float display index that lerps toward target each RAF tick
+  const displayFrameRef = useRef(1);
+  const rafRef = useRef<number | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end start"],
   });
 
+  // Preload all frames
   useEffect(() => {
     const base = import.meta.env.BASE_URL;
     let loadedCount = 0;
@@ -38,19 +41,20 @@ export function HeroCanvas({ targetRef }: HeroCanvasProps) {
       img.src = frameUrl(base, i);
       img.onload = () => {
         loadedCount++;
-        if (loadedCount === FRAME_COUNT) {
-          setImagesLoaded(true);
-        }
+        if (loadedCount === FRAME_COUNT) setImagesLoaded(true);
       };
       images.push(img);
     }
     imagesRef.current = images;
   }, []);
 
-  const drawFrame = (index: number) => {
+  const drawIndex = (floatIndex: number) => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const index = Math.min(FRAME_COUNT, Math.max(1, Math.round(floatIndex)));
     const img = imagesRef.current[index - 1];
-    if (!canvas || !img || !img.complete || img.naturalWidth === 0) return;
+    if (!img || !img.complete || img.naturalWidth === 0) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -68,7 +72,7 @@ export function HeroCanvas({ targetRef }: HeroCanvasProps) {
 
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    // object-cover style fit
+    // object-cover fit
     const canvasRatio = width / height;
     const imgRatio = img.naturalWidth / img.naturalHeight;
     let drawWidth = width;
@@ -90,20 +94,44 @@ export function HeroCanvas({ targetRef }: HeroCanvasProps) {
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
   };
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const frame = Math.min(
-      FRAME_COUNT,
-      Math.max(1, Math.round(latest * (FRAME_COUNT - 1)) + 1),
-    );
-    currentFrameRef.current = frame;
-    drawFrame(frame);
-  });
-
+  // RAF loop: lerp displayFrame → targetFrame and draw every tick
   useEffect(() => {
     if (!imagesLoaded) return;
-    drawFrame(currentFrameRef.current);
 
-    const handleResize = () => drawFrame(currentFrameRef.current);
+    const tick = () => {
+      const current = displayFrameRef.current;
+      const target = targetFrameRef.current;
+      const diff = target - current;
+
+      // Only redraw when there's a meaningful difference
+      if (Math.abs(diff) > 0.05) {
+        displayFrameRef.current = current + diff * LERP;
+        drawIndex(displayFrameRef.current);
+      }
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, [imagesLoaded]);
+
+  // Translate scroll progress → target frame (no draw here — RAF handles it)
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    targetFrameRef.current = Math.min(
+      FRAME_COUNT,
+      Math.max(1, latest * (FRAME_COUNT - 1) + 1),
+    );
+  });
+
+  // Draw first frame once loaded; re-draw on resize
+  useEffect(() => {
+    if (!imagesLoaded) return;
+    drawIndex(displayFrameRef.current);
+
+    const handleResize = () => drawIndex(displayFrameRef.current);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [imagesLoaded]);
