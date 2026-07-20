@@ -2,6 +2,7 @@ import { FadeIn } from "@/components/animations/fade-in";
 import margheritaUrl from "@assets/pizza-margherita.jpg";
 import signatureUrl from "@assets/pizza-signature.jpg";
 import insalataUrl from "@assets/insalata-hawas.jpg";
+import arrabbiataUrl from "@assets/pasta-arrabbiata.jpg";
 
 interface MenuItem {
   name: string;
@@ -191,7 +192,20 @@ export function MenuSection() {
           <MenuGroup title="Pasta" items={PASTA} delay={0} />
           <div className="space-y-16">
             <MenuGroup title="Vorspeisen" items={VORSPEISEN} delay={0.05} />
-            <MenuGroup title="Salate" items={SALATE} delay={0.1} />
+            <div className="grid grid-cols-2 gap-6 items-start">
+              <MenuGroup title="Salate" items={SALATE} delay={0.1} />
+              <FadeIn delay={0.2}>
+                <div className="group relative overflow-hidden bg-card">
+                  <div className="aspect-[3/4] overflow-hidden">
+                    <img
+                      src={insalataUrl}
+                      alt=""
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                </div>
+              </FadeIn>
+            </div>
           </div>
           <div className="flex flex-col gap-16">
             <MenuGroup title="Dessert" items={DESSERT} delay={0.15} />
@@ -199,17 +213,10 @@ export function MenuSection() {
               <div className="group relative overflow-hidden bg-card">
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
-                    src={insalataUrl}
-                    alt="Insalata Hawa's"
+                    src={arrabbiataUrl}
+                    alt=""
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-baseline border-b border-border pb-3 mb-3">
-                    <h3 className="text-lg font-bold">Insalata Hawa's</h3>
-                    <span className="text-base font-light">11,90 €</span>
-                  </div>
-                  <p className="text-sm text-foreground/70 font-light">Gemischter Salat, Garnelen, Caesar-Dressing.</p>
                 </div>
               </div>
             </FadeIn>
