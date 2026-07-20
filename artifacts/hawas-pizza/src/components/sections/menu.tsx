@@ -195,13 +195,11 @@ export function MenuSection() {
           {/* Middle: Vorspeisen + Salate with Insalata image as slim third bar */}
           <div className="space-y-16">
             <MenuGroup title="Vorspeisen" items={VORSPEISEN} delay={0.05} />
-            <div className="flex gap-6 items-start">
-              <div className="flex-1 min-w-0">
-                <MenuGroup title="Salate" items={SALATE} delay={0.1} />
-              </div>
+            <div className="grid grid-cols-2 gap-6 items-start">
+              <MenuGroup title="Salate" items={SALATE} delay={0.1} />
               <FadeIn delay={0.2}>
-                <div className="group relative overflow-hidden bg-card w-24 flex-shrink-0">
-                  <div className="aspect-[2/3] overflow-hidden">
+                <div className="group relative overflow-hidden bg-card">
+                  <div className="aspect-[3/4] overflow-hidden">
                     <img
                       src={insalataUrl}
                       alt=""
