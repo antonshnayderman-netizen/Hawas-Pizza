@@ -1,0 +1,12 @@
+[build]
+  command   = "pnpm --filter @workspace/hawas-pizza run build"
+  publish   = "artifacts/hawas-pizza/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# SPA fallback: alle Routen zeigen auf index.html
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
