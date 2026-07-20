@@ -3,6 +3,7 @@ import margheritaUrl from "@assets/pizza-margherita.jpg";
 import signatureUrl from "@assets/pizza-signature.jpg";
 import insalataUrl from "@assets/insalata-hawas.jpg";
 import arrabbiataUrl from "@assets/pasta-arrabbiata.jpg";
+import tiramisuUrl from "@assets/tiramisu.jpg";
 
 interface MenuItem {
   name: string;
@@ -197,11 +198,12 @@ export function MenuSection() {
           <MenuGroup title="Dessert" items={DESSERT} delay={0.15} />
         </div>
 
-        {/* Bottom image row – equal size, no labels */}
+        {/* Bottom image block – Arrabbiata left, Tiramisu + Insalata stacked right */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+          {/* Left: Arrabbiata – full height */}
           <FadeIn delay={0.1}>
-            <div className="group relative overflow-hidden bg-card">
-              <div className="aspect-[4/3] overflow-hidden">
+            <div className="group relative overflow-hidden bg-card h-full">
+              <div className="h-full min-h-[300px] overflow-hidden">
                 <img
                   src={arrabbiataUrl}
                   alt=""
@@ -210,17 +212,31 @@ export function MenuSection() {
               </div>
             </div>
           </FadeIn>
-          <FadeIn delay={0.2}>
-            <div className="group relative overflow-hidden bg-card">
-              <div className="aspect-[4/3] overflow-hidden">
-                <img
-                  src={insalataUrl}
-                  alt=""
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+          {/* Right: Tiramisu on top, Insalata below – equal split */}
+          <div className="flex flex-col gap-8">
+            <FadeIn delay={0.15}>
+              <div className="group relative overflow-hidden bg-card">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={tiramisuUrl}
+                    alt=""
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
               </div>
-            </div>
-          </FadeIn>
+            </FadeIn>
+            <FadeIn delay={0.25}>
+              <div className="group relative overflow-hidden bg-card">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={insalataUrl}
+                    alt=""
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              </div>
+            </FadeIn>
+          </div>
         </div>
 
         <FadeIn delay={0.3}>
