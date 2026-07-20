@@ -1,15 +1,16 @@
-# [Project name]
+# Hawas Pizza
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A pizza ordering web app with a React/Vite frontend and Express API backend.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- **Hawas Pizza** workflow — starts the frontend on port 3000 (`PORT=3000 API_PORT=5000 pnpm --filter @workspace/hawas-pizza run dev`)
+- **API Server** workflow — starts the backend on port 5000 (`PORT=5000 pnpm --filter @workspace/api-server run dev`)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- Required env: `DATABASE_URL` — Postgres connection string (auto-provided by Replit's built-in database)
 
 ## Stack
 
