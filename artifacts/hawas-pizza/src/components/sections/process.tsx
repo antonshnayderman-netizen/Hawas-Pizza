@@ -1,15 +1,23 @@
 import { FadeIn } from "@/components/animations/fade-in";
 import doughUrl from "@assets/dough-hands.jpg";
 import interiorUrl from "@assets/interior.jpg";
+import logoUrl from "@assets/hawas-logo.png";
 
 export function ProcessSection() {
   return (
     <section id="handwerk" className="py-32 bg-foreground text-background">
       <div className="container mx-auto px-6 max-w-7xl">
         <FadeIn>
-          <div className="max-w-2xl mb-24">
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">Die Anatomie <br/>einer perfekten Pizza.</h2>
-            <p className="text-background/70 font-light text-lg">Kein Fließband. Keine Maschinen. Nur Hände, Gefühl und 450°C Hitze.</p>
+          <div className="flex items-center justify-between mb-24 gap-12">
+            <div className="max-w-2xl">
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">Die Anatomie <br/>einer perfekten Pizza.</h2>
+              <p className="text-background/70 font-light text-lg">Kein Fließband. Keine Maschinen. Nur Hände, Gefühl und 450°C Hitze.</p>
+            </div>
+            <img
+              src={logoUrl}
+              alt="Hawa's Pizza"
+              className="w-48 md:w-64 opacity-90 flex-shrink-0 hidden md:block"
+            />
           </div>
         </FadeIn>
 
