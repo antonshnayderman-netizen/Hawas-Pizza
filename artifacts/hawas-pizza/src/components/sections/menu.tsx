@@ -191,30 +191,32 @@ export function MenuSection() {
         {/* Pasta, Vorspeisen & Salate, Dessert */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
           <MenuGroup title="Pasta" items={PASTA} delay={0} />
+
+          {/* Middle: Vorspeisen + Salate with Insalata image as slim third bar */}
           <div className="space-y-16">
             <MenuGroup title="Vorspeisen" items={VORSPEISEN} delay={0.05} />
-            <MenuGroup title="Salate" items={SALATE} delay={0.1} />
-          </div>
-          <MenuGroup title="Dessert" items={DESSERT} delay={0.15} />
-        </div>
-
-        {/* Bottom image block – Arrabbiata left, Tiramisu + Insalata stacked right */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
-          {/* Left: Arrabbiata – full height */}
-          <FadeIn delay={0.1}>
-            <div className="group relative overflow-hidden bg-card h-full">
-              <div className="h-full min-h-[300px] overflow-hidden">
-                <img
-                  src={arrabbiataUrl}
-                  alt=""
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+            <div className="flex gap-6 items-start">
+              <div className="flex-1 min-w-0">
+                <MenuGroup title="Salate" items={SALATE} delay={0.1} />
               </div>
+              <FadeIn delay={0.2}>
+                <div className="group relative overflow-hidden bg-card w-24 flex-shrink-0">
+                  <div className="aspect-[2/3] overflow-hidden">
+                    <img
+                      src={insalataUrl}
+                      alt=""
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                </div>
+              </FadeIn>
             </div>
-          </FadeIn>
-          {/* Right: Tiramisu on top, Insalata below – equal split */}
-          <div className="flex flex-col gap-8">
-            <FadeIn delay={0.15}>
+          </div>
+
+          {/* Right: Dessert + Tiramisu image below */}
+          <div className="space-y-8">
+            <MenuGroup title="Dessert" items={DESSERT} delay={0.15} />
+            <FadeIn delay={0.25}>
               <div className="group relative overflow-hidden bg-card">
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
@@ -225,19 +227,21 @@ export function MenuSection() {
                 </div>
               </div>
             </FadeIn>
-            <FadeIn delay={0.25}>
-              <div className="group relative overflow-hidden bg-card">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={insalataUrl}
-                    alt=""
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-              </div>
-            </FadeIn>
           </div>
         </div>
+
+        {/* Full-width Arrabbiata at the bottom */}
+        <FadeIn delay={0.1}>
+          <div className="group relative overflow-hidden bg-card mt-16">
+            <div className="aspect-[21/6] overflow-hidden">
+              <img
+                src={arrabbiataUrl}
+                alt=""
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+          </div>
+        </FadeIn>
 
         <FadeIn delay={0.3}>
           <p className="text-center text-xs text-muted-foreground/70 mt-16">
