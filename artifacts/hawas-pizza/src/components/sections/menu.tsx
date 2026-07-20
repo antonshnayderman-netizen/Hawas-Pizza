@@ -192,35 +192,35 @@ export function MenuSection() {
           <MenuGroup title="Pasta" items={PASTA} delay={0} />
           <div className="space-y-16">
             <MenuGroup title="Vorspeisen" items={VORSPEISEN} delay={0.05} />
-            <div className="grid grid-cols-2 gap-6 items-start">
-              <MenuGroup title="Salate" items={SALATE} delay={0.1} />
-              <FadeIn delay={0.2}>
-                <div className="group relative overflow-hidden bg-card">
-                  <div className="aspect-[3/4] overflow-hidden">
-                    <img
-                      src={insalataUrl}
-                      alt=""
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-                </div>
-              </FadeIn>
-            </div>
+            <MenuGroup title="Salate" items={SALATE} delay={0.1} />
           </div>
-          <div className="flex flex-col gap-16">
-            <MenuGroup title="Dessert" items={DESSERT} delay={0.15} />
-            <FadeIn delay={0.25}>
-              <div className="group relative overflow-hidden bg-card">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={arrabbiataUrl}
-                    alt=""
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
+          <MenuGroup title="Dessert" items={DESSERT} delay={0.15} />
+        </div>
+
+        {/* Bottom image row – equal size, no labels */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+          <FadeIn delay={0.1}>
+            <div className="group relative overflow-hidden bg-card">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img
+                  src={arrabbiataUrl}
+                  alt=""
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
               </div>
-            </FadeIn>
-          </div>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <div className="group relative overflow-hidden bg-card">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img
+                  src={insalataUrl}
+                  alt=""
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+            </div>
+          </FadeIn>
         </div>
 
         <FadeIn delay={0.3}>
