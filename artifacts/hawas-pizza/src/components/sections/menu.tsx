@@ -188,41 +188,44 @@ export function MenuSection() {
           ))}
         </div>
 
-        {/* Pasta, Vorspeisen & Salate, Dessert */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
+        {/* Pasta | Subgrid (Vorspeisen/Salate × Dessert+Tiramisu/Insalata) */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-12 gap-y-16">
           <MenuGroup title="Pasta" items={PASTA} delay={0} />
 
-          {/* Middle: Vorspeisen + Salate */}
-          <div className="space-y-16">
-            <MenuGroup title="Vorspeisen" items={VORSPEISEN} delay={0.05} />
-            <MenuGroup title="Salate" items={SALATE} delay={0.1} />
-          </div>
+          {/* Cols 2+3: 2×2 subgrid — grid rows share height across both columns */}
+          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16 items-stretch">
 
-          {/* Right: Dessert + Tiramisu + Insalata (same width, twice as tall) */}
-          <div className="space-y-8">
-            <MenuGroup title="Dessert" items={DESSERT} delay={0.15} />
-            <FadeIn delay={0.25}>
-              <div className="group relative overflow-hidden bg-card">
-                <div className="aspect-[4/3] overflow-hidden">
+            {/* Row 1 left: Vorspeisen */}
+            <MenuGroup title="Vorspeisen" items={VORSPEISEN} delay={0.05} />
+
+            {/* Row 1 right: Dessert + Tiramisu growing to fill remaining row height */}
+            <div className="flex flex-col gap-8">
+              <MenuGroup title="Dessert" items={DESSERT} delay={0.15} />
+              <FadeIn delay={0.25} className="flex-1 min-h-0">
+                <div className="group relative overflow-hidden bg-card h-full">
                   <img
                     src={tiramisuUrl}
                     alt=""
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
+              </FadeIn>
+            </div>
+
+            {/* Row 2 left: Salate */}
+            <MenuGroup title="Salate" items={SALATE} delay={0.1} />
+
+            {/* Row 2 right: Insalata — height locked to Salate row */}
+            <FadeIn delay={0.35} className="h-full">
+              <div className="group relative overflow-hidden bg-card h-full">
+                <img
+                  src={insalataUrl}
+                  alt=""
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
               </div>
             </FadeIn>
-            <FadeIn delay={0.35}>
-              <div className="group relative overflow-hidden bg-card">
-                <div className="aspect-[2/3] overflow-hidden">
-                  <img
-                    src={insalataUrl}
-                    alt=""
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-              </div>
-            </FadeIn>
+
           </div>
         </div>
 
