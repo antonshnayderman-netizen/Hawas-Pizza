@@ -1,4 +1,5 @@
 [build]
+  base      = "."
   command   = "pnpm --filter @workspace/hawas-pizza run build"
   publish   = "artifacts/hawas-pizza/dist"
 
