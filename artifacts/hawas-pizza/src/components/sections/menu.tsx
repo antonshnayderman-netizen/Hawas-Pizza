@@ -1,6 +1,7 @@
 import { FadeIn } from "@/components/animations/fade-in";
 import margheritaUrl from "@assets/pizza-margherita.jpg";
 import signatureUrl from "@assets/pizza-signature.jpg";
+import insalataUrl from "@assets/insalata-hawas.jpg";
 
 interface MenuItem {
   name: string;
@@ -192,7 +193,27 @@ export function MenuSection() {
             <MenuGroup title="Vorspeisen" items={VORSPEISEN} delay={0.05} />
             <MenuGroup title="Salate" items={SALATE} delay={0.1} />
           </div>
-          <MenuGroup title="Dessert" items={DESSERT} delay={0.15} />
+          <div className="flex flex-col gap-16">
+            <MenuGroup title="Dessert" items={DESSERT} delay={0.15} />
+            <FadeIn delay={0.25}>
+              <div className="group relative overflow-hidden bg-card">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={insalataUrl}
+                    alt="Insalata Hawa's"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="flex justify-between items-baseline border-b border-border pb-3 mb-3">
+                    <h3 className="text-lg font-bold">Insalata Hawa's</h3>
+                    <span className="text-base font-light">11,90 €</span>
+                  </div>
+                  <p className="text-sm text-foreground/70 font-light">Gemischter Salat, Garnelen, Caesar-Dressing.</p>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
         </div>
 
         <FadeIn delay={0.3}>
