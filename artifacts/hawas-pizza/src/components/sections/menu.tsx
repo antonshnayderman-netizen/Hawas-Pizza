@@ -206,6 +206,8 @@ export function MenuSection() {
                   <img
                     src={tiramisuUrl}
                     alt=""
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
@@ -221,6 +223,8 @@ export function MenuSection() {
                 <img
                   src={insalataUrl}
                   alt=""
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
@@ -236,6 +240,8 @@ export function MenuSection() {
               <img
                 src={arrabbiataUrl}
                 alt=""
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
             </div>

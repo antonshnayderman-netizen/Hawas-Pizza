@@ -31,9 +31,11 @@ export function PhilosophySection() {
           <div className="order-1 lg:order-2">
             <FadeIn direction="left" delay={0.2}>
               <div className="relative aspect-[4/5] w-full overflow-hidden bg-muted">
-                <img 
-                  src={ingredientsUrl} 
-                  alt="Frische Zutaten" 
+                <img
+                  src={ingredientsUrl}
+                  alt="Frische Zutaten"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
                 />
               </div>

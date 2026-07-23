@@ -140,13 +140,27 @@ function ReviewCard({ review }: { review: (typeof REVIEWS)[0] }) {
 }
 
 export function TestimonialSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const positionRef = useRef(0);
   const rafRef = useRef<number>(0);
+  const inViewRef = useRef(false);
 
   // Duplicate reviews for seamless loop
   const allReviews = [...REVIEWS, ...REVIEWS, ...REVIEWS];
+
+  // Pause RAF entirely when section is off-screen
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { inViewRef.current = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -155,9 +169,8 @@ export function TestimonialSection() {
     const SPEED = 0.5; // px per frame
 
     function animate() {
-      if (!isPaused && track) {
+      if (!isPaused && inViewRef.current && track) {
         positionRef.current += SPEED;
-        // Reset when first set has scrolled through
         const singleWidth = track.scrollWidth / 3;
         if (positionRef.current >= singleWidth) {
           positionRef.current -= singleWidth;
@@ -172,7 +185,7 @@ export function TestimonialSection() {
   }, [isPaused]);
 
   return (
-    <section className="py-24 bg-background border-y border-border/40 overflow-hidden">
+    <section ref={sectionRef} className="py-24 bg-background border-y border-border/40 overflow-hidden">
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Header */}
         <FadeIn>

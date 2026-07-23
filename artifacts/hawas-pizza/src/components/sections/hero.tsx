@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/premium-button";
 import { ORDER_URL } from "@/lib/order";
 import { HeroCanvas } from "@/components/sections/hero-canvas";
 import logoUrl from "@assets/hawas-logo.png";
+import posterUrl from "@assets/hero-poster.jpg";
 
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -20,9 +21,20 @@ export function HeroSection() {
   return (
     <section ref={sectionRef} id="hero" className="relative h-[200vh]">
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center pt-20">
-        {/* Scroll-scrubbed frame sequence */}
+        {/* Scroll-scrubbed frame sequence — canvas on desktop, poster on mobile */}
         <div className="absolute inset-0 z-0">
-          <HeroCanvas targetRef={sectionRef} />
+          {/* Mobile fallback: static poster image, no 15 MB frame download */}
+          <img
+            src={posterUrl}
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover md:hidden"
+          />
+          {/* Desktop: scroll-scrubbed canvas */}
+          <div className="hidden md:block absolute inset-0">
+            <HeroCanvas targetRef={sectionRef} />
+          </div>
           <div className="absolute inset-0 bg-foreground/30 mix-blend-multiply" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
@@ -38,6 +50,8 @@ export function HeroSection() {
                 <img
                   src={logoUrl}
                   alt="Hawas Pizza Logo"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-20 h-20 md:w-28 md:h-28 object-contain drop-shadow-lg"
                 />
                 <span className="text-3xl md:text-4xl lg:text-5xl font-serif italic text-white tracking-tight leading-none">

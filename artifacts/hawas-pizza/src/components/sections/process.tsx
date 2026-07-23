@@ -25,7 +25,7 @@ export function ProcessSection() {
           <FadeIn delay={0.2}>
             <div className="relative group overflow-hidden h-[60vh] md:h-[80vh]">
               <div className="absolute inset-0 bg-black/20 z-10 transition-opacity group-hover:opacity-0" />
-              <img src={doughUrl} alt="Teigzubereitung" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+              <img src={doughUrl} alt="Teigzubereitung" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
               <div className="absolute bottom-0 left-0 p-8 z-20">
                 <h3 className="text-2xl font-bold mb-2">01. Der Teig</h3>
                 <p className="text-white/80 font-light max-w-xs">48 Stunden Reifezeit für maximale Bekömmlichkeit und ein luftiges Cornicione.</p>
@@ -36,7 +36,7 @@ export function ProcessSection() {
           <FadeIn delay={0.4}>
             <div className="relative group overflow-hidden h-[60vh] md:h-[80vh] md:mt-24">
               <div className="absolute inset-0 bg-black/20 z-10 transition-opacity group-hover:opacity-0" />
-              <img src={interiorUrl} alt="Steinofen" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+              <img src={interiorUrl} alt="Steinofen" loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
               <div className="absolute bottom-0 left-0 p-8 z-20">
                 <h3 className="text-2xl font-bold mb-2">02. Das Feuer</h3>
                 <p className="text-white/80 font-light max-w-xs">90 Sekunden bei 450°C im Steinofen. Die perfekte Balance aus knusprig und zart.</p>
