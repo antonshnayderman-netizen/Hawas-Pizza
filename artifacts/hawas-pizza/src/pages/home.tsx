@@ -2,6 +2,7 @@ import { HeroSection } from "@/components/sections/hero";
 import { PhilosophySection } from "@/components/sections/philosophy";
 import { MenuSection } from "@/components/sections/menu";
 import { ProcessSection } from "@/components/sections/process";
+import { MapSection } from "@/components/sections/map";
 import { TestimonialSection } from "@/components/sections/testimonials";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -15,6 +16,7 @@ export default function Home() {
         <PhilosophySection />
         <MenuSection />
         <ProcessSection />
+        <MapSection />
         <TestimonialSection />
       </main>
       <Footer />
