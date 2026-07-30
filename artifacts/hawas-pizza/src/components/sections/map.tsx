@@ -19,7 +19,7 @@ export function MapSection() {
             loading="lazy"
             allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
-            className="absolute inset-0 w-full h-full border-0 grayscale contrast-[1.05] brightness-[0.97]"
+            className="absolute inset-0 w-full h-full border-0"
           />
         </FadeIn>
 
