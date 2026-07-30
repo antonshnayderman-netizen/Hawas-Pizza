@@ -16,8 +16,8 @@ export default function Home() {
         <PhilosophySection />
         <MenuSection />
         <ProcessSection />
-        <MapSection />
         <TestimonialSection />
+        <MapSection />
       </main>
       <Footer />
     </div>
