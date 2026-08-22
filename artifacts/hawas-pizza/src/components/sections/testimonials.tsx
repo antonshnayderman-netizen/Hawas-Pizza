@@ -1,68 +1,67 @@
 import { useEffect, useRef, useState } from "react";
 import { FadeIn } from "@/components/animations/fade-in";
 
-// ── Real Google reviews – paste your own texts here ──────────────────────────
+// ── Platzhalter-Bewertungen für die Kundendemo ───────────────────────────────
+// Hier stehen später die echten Rezensionen des Kunden. Bewusst als Beispiel
+// gekennzeichnet, damit die Demo keine erfundenen Bewertungen als echt ausgibt.
 const REVIEWS = [
   {
-    name: "M. K.",
+    name: "Rezensionsbeispiel 1",
     date: "vor 2 Wochen",
-    text: "Die beste Neapolitanische Pizza außerhalb Neapels. Punkt. Der Teig ist perfekt — luftig, leicht angebrannt und mit dieser typischen Textur, die man sonst kaum findet.",
-    initials: "MK",
-    color: "#4285F4",
+    text: "Beste Pizza der Stadt! Der Teig ist luftig, der Rand perfekt gebacken. Wir bestellen jede Woche.",
+    initials: "B1",
+    color: "#B4531F",
   },
   {
-    name: "S. B.",
+    name: "Rezensionsbeispiel 2",
     date: "vor 1 Monat",
-    text: "Endlich eine Pizzeria, die versteht, dass weniger oft mehr ist. Der Teig ist ein Traum. Frische Zutaten, ehrlicher Geschmack — so muss Pizza sein.",
-    initials: "SB",
-    color: "#EA4335",
+    text: "Super Laden, super Leute. Schnelle Abholung, alles heiß und frisch. Klare Empfehlung!",
+    initials: "B2",
+    color: "#4A5D23",
   },
   {
-    name: "K. L.",
+    name: "Rezensionsbeispiel 3",
     date: "vor 3 Wochen",
-    text: "Schnell, kompromisslos frisch und ein Service, der von Herzen kommt. Wir kommen immer wieder. Die margherita ist unschlagbar.",
-    initials: "KL",
-    color: "#34A853",
+    text: "Endlich mal ehrliche Zutaten statt Fließband. Man schmeckt den Unterschied sofort.",
+    initials: "B3",
+    color: "#8A6D3B",
   },
   {
-    name: "A. H.",
+    name: "Rezensionsbeispiel 4",
     date: "vor 2 Monaten",
-    text: "Absolut fantastisch! Der Teig wird traditionell hergestellt und man schmeckt den Unterschied sofort. Meine absolute Lieblispizzeria in Hamburg.",
-    initials: "AH",
-    color: "#FBBC05",
+    text: "Fünf Sterne sind fast zu wenig. Die Margherita ist unschlagbar, der Service herzlich.",
+    initials: "B4",
+    color: "#2C2C2C",
   },
   {
-    name: "T. R.",
+    name: "Rezensionsbeispiel 5",
     date: "vor 1 Woche",
-    text: "5 Sterne sind eigentlich zu wenig. Die Pizza hat mich an meinen letzten Neapel-Urlaub erinnert. Authentisch, lecker und zu einem fairen Preis.",
-    initials: "TR",
-    color: "#4285F4",
+    text: "Knusprig außen, weich innen – genau so muss eine Pizza sein. Wir kommen wieder.",
+    initials: "B5",
+    color: "#B4531F",
   },
   {
-    name: "J. M.",
+    name: "Rezensionsbeispiel 6",
     date: "vor 5 Wochen",
-    text: "Ich habe selten so eine gute Pizza gegessen. Der Belag ist großzügig, frisch und alles schmeckt nach echten Zutaten. Sehr zu empfehlen!",
-    initials: "JM",
-    color: "#EA4335",
+    text: "Großzügig belegt, fair im Preis und immer pünktlich fertig. Top Pizzeria in Hamburg.",
+    initials: "B6",
+    color: "#4A5D23",
   },
   {
-    name: "L. F.",
+    name: "Rezensionsbeispiel 7",
     date: "vor 3 Monaten",
-    text: "Eine Oase für Pizza-Liebhaber in Hamburg. Der Teig ist dünn, knusprig außen und weich innen — genau so soll es sein. Wir kommen gerne wieder!",
-    initials: "LF",
-    color: "#34A853",
+    text: "Der 48-Stunden-Teig macht wirklich den Unterschied. Absolute Lieblingspizzeria.",
+    initials: "B7",
+    color: "#8A6D3B",
   },
   {
-    name: "C. W.",
+    name: "Rezensionsbeispiel 8",
     date: "vor 2 Wochen",
-    text: "Hervorragende Qualität, freundliches Personal und die Pizzen kommen schnell und heiß an den Tisch. Einfach perfekt. Mehr brauche ich nicht zu sagen.",
-    initials: "CW",
-    color: "#FBBC05",
+    text: "Freundliches Personal, kurze Wartezeit, hervorragende Qualität. Einfach perfekt.",
+    initials: "B8",
+    color: "#2C2C2C",
   },
 ];
-
-const GOOGLE_MAPS_URL =
-  "https://www.google.com/maps/search/?api=1&query=Hawas+Pizza+Hamburg";
 
 function StarRow({ size = 4 }: { size?: number }) {
   return (
@@ -78,33 +77,6 @@ function StarRow({ size = 4 }: { size?: number }) {
         </svg>
       ))}
     </div>
-  );
-}
-
-function GoogleLogo({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-        fill="#4285F4"
-      />
-      <path
-        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-        fill="#34A853"
-      />
-      <path
-        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-        fill="#FBBC05"
-      />
-      <path
-        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-        fill="#EA4335"
-      />
-    </svg>
   );
 }
 
@@ -125,7 +97,6 @@ function ReviewCard({ review }: { review: (typeof REVIEWS)[0] }) {
           </p>
           <p className="text-xs text-muted-foreground">{review.date}</p>
         </div>
-        <GoogleLogo className="w-5 h-5 ml-auto flex-shrink-0" />
       </div>
 
       {/* Stars */}
@@ -190,26 +161,23 @@ export function TestimonialSection() {
         {/* Header */}
         <FadeIn>
           <div className="flex flex-col items-center text-center mb-14 gap-4">
-            <a
-              href={GOOGLE_MAPS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col items-center gap-3"
-            >
+            <div className="flex flex-col items-center gap-3">
               <div className="flex items-center gap-2">
-                <GoogleLogo className="w-6 h-6" />
-                <span className="text-sm font-semibold text-muted-foreground group-hover:text-foreground transition-colors">
-                  Google Rezensionen
+                <span className="text-sm font-semibold text-muted-foreground">
+                  Kundenstimmen
+                </span>
+                <span className="rounded-full border border-border/60 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                  Beispielansicht
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-4xl font-bold text-foreground">5,0</span>
                 <StarRow size={6} />
               </div>
-              <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
-                Basierend auf 50 Google-Rezensionen ↗
+              <p className="text-sm text-muted-foreground max-w-md">
+                Platzhalter-Ansicht: Hier erscheinen später Ihre echten Bewertungen.
               </p>
-            </a>
+            </div>
           </div>
         </FadeIn>
       </div>
@@ -238,15 +206,9 @@ export function TestimonialSection() {
       {/* CTA */}
       <FadeIn>
         <div className="flex justify-center mt-10">
-          <a
-            href={GOOGLE_MAPS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground border border-border/60 rounded-full px-5 py-2.5 transition-colors hover:border-border"
-          >
-            <GoogleLogo className="w-4 h-4" />
-            Alle Rezensionen auf Google lesen
-          </a>
+          <span className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground border border-border/60 rounded-full px-5 py-2.5">
+            Beispielrezensionen – Ihre echten Bewertungen werden hier eingebunden
+          </span>
         </div>
       </FadeIn>
     </section>

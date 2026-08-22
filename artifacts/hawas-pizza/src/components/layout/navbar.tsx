@@ -1,8 +1,8 @@
 import { useScroll } from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/premium-button";
-import { ORDER_URL } from "@/lib/order";
-import logoUrl from "@assets/hawas-logo.png";
+import { scrollToMenu } from "@/lib/order";
+import logoUrl from "@assets/deine-pizza-logo.png";
 
 export function Navbar() {
   const { scrolled } = useScroll();
@@ -27,28 +27,50 @@ export function Navbar() {
             onClick={() => scrollToSection("hero")}
             className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
           >
-            <img src={logoUrl} alt="Hawas Pizza Logo" className="w-8 h-8 object-contain invert dark:invert-0" />
-            <span className="text-xl font-bold tracking-tighter">Hawas Pizza</span>
+            <img
+              src={logoUrl}
+              alt="Deine Pizza Logo"
+              className={cn(
+                "h-8 w-auto object-contain transition-[filter] duration-500",
+                // Das dunkle Logo braucht über dem Hero-Bild eine helle Kante.
+                !scrolled && "drop-shadow-[0_0_6px_rgba(255,255,255,0.5)]"
+              )}
+            />
+            <span
+              className={cn(
+                "text-xl font-bold tracking-tighter transition-colors duration-500",
+                scrolled ? "text-foreground" : "text-white drop-shadow-md"
+              )}
+            >
+              Deine Pizza
+            </span>
           </button>
 
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <button onClick={() => scrollToSection("philosophie")} className="text-foreground/80 hover:text-foreground transition-colors">
-              Philosophie
-            </button>
-            <button onClick={() => scrollToSection("menu")} className="text-foreground/80 hover:text-foreground transition-colors">
-              Menu
-            </button>
-            <button onClick={() => scrollToSection("handwerk")} className="text-foreground/80 hover:text-foreground transition-colors">
-              Handwerk
-            </button>
+            {[
+              { id: "philosophie", label: "Philosophie" },
+              { id: "menu", label: "Menu" },
+              { id: "handwerk", label: "Handwerk" },
+            ].map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={() => scrollToSection(id)}
+                className={cn(
+                  "transition-colors duration-500",
+                  scrolled
+                    ? "text-foreground/80 hover:text-foreground"
+                    : "text-white/85 hover:text-white drop-shadow-md"
+                )}
+              >
+                {label}
+              </button>
+            ))}
           </nav>
 
           <div className="flex items-center gap-4">
-            <a href={ORDER_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="sm" variant="primary">
-                Jetzt bestellen
-              </Button>
-            </a>
+            <Button size="sm" variant="primary" onClick={scrollToMenu}>
+              Jetzt bestellen
+            </Button>
           </div>
         </div>
       </div>

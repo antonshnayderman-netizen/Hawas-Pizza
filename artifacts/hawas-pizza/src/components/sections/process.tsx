@@ -1,7 +1,8 @@
 import { FadeIn } from "@/components/animations/fade-in";
+import { AiBadge } from "@/components/ui/ai-badge";
 import doughUrl from "@assets/dough-hands.jpg";
 import interiorUrl from "@assets/interior.jpg";
-import logoUrl from "@assets/hawas-logo.png";
+import logoUrl from "@assets/deine-pizza-logo.png";
 
 export function ProcessSection() {
   return (
@@ -15,8 +16,8 @@ export function ProcessSection() {
             </div>
             <img
               src={logoUrl}
-              alt="Hawa's Pizza"
-              className="w-48 md:w-64 opacity-90 flex-shrink-0 hidden md:block"
+              alt="Deine Pizza"
+              className="w-48 md:w-64 flex-shrink-0 hidden md:block drop-shadow-[0_0_14px_rgba(255,255,255,0.35)]"
             />
           </div>
         </FadeIn>
@@ -30,6 +31,7 @@ export function ProcessSection() {
                 <h3 className="text-2xl font-bold mb-2">01. Der Teig</h3>
                 <p className="text-white/80 font-light max-w-xs">48 Stunden Reifezeit für maximale Bekömmlichkeit und ein luftiges Cornicione.</p>
               </div>
+              <AiBadge />
             </div>
           </FadeIn>
 
@@ -41,6 +43,7 @@ export function ProcessSection() {
                 <h3 className="text-2xl font-bold mb-2">02. Das Feuer</h3>
                 <p className="text-white/80 font-light max-w-xs">90 Sekunden bei 450°C im Steinofen. Die perfekte Balance aus knusprig und zart.</p>
               </div>
+              <AiBadge />
             </div>
           </FadeIn>
         </div>

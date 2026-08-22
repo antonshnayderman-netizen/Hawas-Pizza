@@ -1,3 +1,5 @@
-// Echte Bestell-/Abholseite von Hawas Pizza (externer Lieferservice-Anbieter).
-export const ORDER_URL =
-  "https://www.pizzeria.de/lieferservice/hamburg/hawas-pizza/auswahl/5665";
+// Demo-Ansicht: Es ist kein echter Bestell-Anbieter angebunden.
+// "Jetzt bestellen" springt deshalb zur Speisekarte statt auf eine externe Seite.
+export function scrollToMenu() {
+  document.getElementById("menu")?.scrollIntoView({ behavior: "smooth" });
+}

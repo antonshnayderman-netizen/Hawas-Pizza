@@ -1,4 +1,5 @@
 import { FadeIn } from "@/components/animations/fade-in";
+import { AiBadge } from "@/components/ui/ai-badge";
 import ingredientsUrl from "@assets/ingredients.jpg";
 
 export function PhilosophySection() {
@@ -38,6 +39,7 @@ export function PhilosophySection() {
                   decoding="async"
                   className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
                 />
+                <AiBadge />
               </div>
             </FadeIn>
           </div>

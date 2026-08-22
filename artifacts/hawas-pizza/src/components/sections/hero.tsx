@@ -2,9 +2,10 @@ import { useRef } from "react";
 import { useScroll, useTransform, motion } from "framer-motion";
 import { FadeIn } from "@/components/animations/fade-in";
 import { Button } from "@/components/ui/premium-button";
-import { ORDER_URL } from "@/lib/order";
+import { scrollToMenu } from "@/lib/order";
 import { HeroCanvas } from "@/components/sections/hero-canvas";
-import logoUrl from "@assets/hawas-logo.png";
+import { AiBadge } from "@/components/ui/ai-badge";
+import logoUrl from "@assets/deine-pizza-logo.png";
 import posterUrl from "@assets/hero-poster.jpg";
 
 export function HeroSection() {
@@ -35,9 +36,14 @@ export function HeroSection() {
           <div className="hidden md:block absolute inset-0">
             <HeroCanvas targetRef={sectionRef} />
           </div>
-          <div className="absolute inset-0 bg-foreground/30 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-foreground/20 mix-blend-multiply" />
+          {/* Weicher Übergang zur weißen Sektion darunter – bewusst auf das
+              untere Viertel begrenzt, damit die Pizza nicht ausgewaschen wird. */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_top,hsl(var(--background))_0%,hsl(var(--background)/0.72)_6%,hsl(var(--background)/0.32)_13%,hsl(var(--background)/0.10)_20%,transparent_30%)]" />
         </div>
+
+        {/* Sitzt im weißen Verlauf – braucht daher mehr Deckkraft als sonst. */}
+        <AiBadge className="bottom-4 right-5 z-30 bg-black/70" />
 
         <motion.div
           style={{ opacity: contentOpacity, y: contentY }}
@@ -49,13 +55,13 @@ export function HeroSection() {
               <div className="flex items-center gap-4 mb-4">
                 <img
                   src={logoUrl}
-                  alt="Hawas Pizza Logo"
+                  alt="Deine Pizza Logo"
                   fetchPriority="high"
                   decoding="async"
-                  className="w-20 h-20 md:w-28 md:h-28 object-contain drop-shadow-lg"
+                  className="h-16 md:h-20 w-auto object-contain drop-shadow-lg"
                 />
                 <span className="text-3xl md:text-4xl lg:text-5xl font-serif italic text-white tracking-tight leading-none">
-                  Hawas Pizza
+                  Deine Pizza
                 </span>
               </div>
             </FadeIn>
@@ -84,13 +90,13 @@ export function HeroSection() {
                   </div>
                 </div>
                 <a
-                  href="tel:04079167456"
+                  href="tel:0401234567"
                   className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-sm border border-white/35 text-white px-5 py-3 rounded-xl hover:bg-white/30 transition-colors group"
                 >
                   <span className="text-2xl font-black leading-none">10%</span>
                   <div className="flex flex-col leading-tight">
                     <span className="text-sm font-semibold">Rabatt telefonisch</span>
-                    <span className="text-xs text-white/80 group-hover:text-white/95 transition-colors font-mono tracking-wide">040-79167456</span>
+                    <span className="text-xs text-white/80 group-hover:text-white/95 transition-colors font-mono tracking-wide">040 1234567</span>
                   </div>
                 </a>
               </div>
@@ -107,11 +113,14 @@ export function HeroSection() {
                 >
                   Speisekarte entdecken
                 </Button>
-                <a href={ORDER_URL} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" variant="outline" className="w-full border-white/40 text-white hover:border-white">
-                    Jetzt bestellen
-                  </Button>
-                </a>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white/40 text-white hover:border-white"
+                  onClick={scrollToMenu}
+                >
+                  Jetzt bestellen
+                </Button>
               </div>
             </FadeIn>
           </div>

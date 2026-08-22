@@ -1,7 +1,8 @@
 import { FadeIn } from "@/components/animations/fade-in";
+import { AiBadge } from "@/components/ui/ai-badge";
 import margheritaUrl from "@assets/pizza-margherita.jpg";
 import signatureUrl from "@assets/pizza-signature.jpg";
-import insalataUrl from "@assets/insalata-hawas.jpg";
+import insalataUrl from "@assets/insalata-casa.jpg";
 import arrabbiataUrl from "@assets/pasta-arrabbiata.jpg";
 import tiramisuUrl from "@assets/tiramisu.jpg";
 
@@ -51,7 +52,7 @@ const PASTA: MenuItem[] = [
   { name: "Pasta Arrabbiata", price: "9,90", desc: "Spaghetti, Tomatensauce, Knoblauch, Chili, Petersilie – scharf." },
   { name: "Pasta Aglio e Olio", price: "9,90", desc: "Spaghetti, Knoblauch, Olivenöl, Chili, Petersilie – scharf." },
   { name: "Pasta Bolognese", price: "11,90", desc: "Spaghetti, Rinderhackfleischsauce, Parmesan, Petersilie." },
-  { name: "Pasta Hawa's", price: "12,90", desc: "Tomaten- und Sahnesauce, Hähnchenbrust, rote Zwiebeln, Brokkoli, Cherrytomaten." },
+  { name: "Pasta della Casa", price: "12,90", desc: "Tomaten- und Sahnesauce, Hähnchenbrust, rote Zwiebeln, Brokkoli, Cherrytomaten." },
   { name: "Pasta Curry Chicken", price: "12,90", desc: "Currysauce, Hähnchenbrust, Paprika, rote Zwiebeln, Petersilie." },
   { name: "Pasta Scampi", price: "13,90", desc: "Tomatensauce, Scampi, Knoblauch, Rucola, Petersilie." },
   { name: "Pasta Frutti di Mare", price: "13,90", desc: "Knoblauch, Olivenöl, Frutti di Mare, Petersilie." },
@@ -66,7 +67,7 @@ const SALATE: MenuItem[] = [
   { name: "Insalata Rucola", price: "8,90", desc: "Rucola, Cherrytomaten, Parmesan, Balsamico." },
   { name: "Insalata Tonno", price: "9,90", desc: "Gemischter Salat, Thunfisch, rote Zwiebeln, Balsamico." },
   { name: "Insalata di Pollo", price: "9,90", desc: "Gemischter Salat, Hähnchenbrust, Caesar-Dressing." },
-  { name: "Insalata Hawa's", price: "11,90", desc: "Gemischter Salat, Garnelen, Caesar-Dressing." },
+  { name: "Insalata della Casa", price: "11,90", desc: "Gemischter Salat, Garnelen, Caesar-Dressing." },
 ];
 
 const VORSPEISEN: MenuItem[] = [
@@ -149,12 +150,13 @@ export function MenuSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
           <FadeIn>
             <div className="group relative overflow-hidden bg-card">
-              <div className="aspect-[4/3] overflow-hidden">
-                <img src={signatureUrl} alt="Pizza Hawa's Signature" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <img src={signatureUrl} alt="Pizza della Casa Signature" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <AiBadge />
               </div>
               <div className="p-8">
                 <div className="flex justify-between items-baseline border-b border-border pb-4 mb-4">
-                  <h3 className="text-2xl font-bold">Pizza Hawa's <span className="text-primary text-sm font-normal tracking-widest uppercase ml-2">Signature</span></h3>
+                  <h3 className="text-2xl font-bold">Pizza della Casa <span className="text-primary text-sm font-normal tracking-widest uppercase ml-2">Signature</span></h3>
                   <span className="text-xl font-light">13,90 €</span>
                 </div>
                 <p className="text-foreground/70 font-light">Sauce Hollandaise, Hähnchenbrust, Paprika, rote Zwiebeln, Brokkoli.</p>
@@ -164,8 +166,9 @@ export function MenuSection() {
 
           <FadeIn delay={0.15}>
             <div className="group relative overflow-hidden bg-card">
-              <div className="aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[4/3] overflow-hidden">
                 <img src={margheritaUrl} alt="Pizza Burrata" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <AiBadge />
               </div>
               <div className="p-8">
                 <div className="flex justify-between items-baseline border-b border-border pb-4 mb-4">
@@ -210,6 +213,7 @@ export function MenuSection() {
                     decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
+                  <AiBadge />
                 </div>
               </FadeIn>
             </div>
@@ -227,6 +231,7 @@ export function MenuSection() {
                   decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
+                <AiBadge />
               </div>
             </FadeIn>
 
@@ -236,7 +241,7 @@ export function MenuSection() {
         {/* Full-width Arrabbiata at the bottom */}
         <FadeIn delay={0.1}>
           <div className="group relative overflow-hidden bg-card mt-16">
-            <div className="aspect-[21/6] overflow-hidden">
+            <div className="relative aspect-[21/6] overflow-hidden">
               <img
                 src={arrabbiataUrl}
                 alt=""
@@ -244,6 +249,7 @@ export function MenuSection() {
                 decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
+              <AiBadge />
             </div>
           </div>
         </FadeIn>

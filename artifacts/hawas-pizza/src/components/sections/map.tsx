@@ -1,10 +1,10 @@
 import { FadeIn } from "@/components/animations/fade-in";
 
 const MAPS_URL =
-  "https://www.google.com/maps/place/Hawa%27s/@53.6648918,9.9995532,17z/data=!3m1!4b1!4m6!3m5!1s0x47b1890031d5dec1:0x9343de137cea5ddd!8m2!3d53.6648918!4d9.9995532!16s%2Fg%2F11ylzvkjmn";
+  "https://www.google.com/maps/search/?api=1&query=Diekmoorweg+34%2C+22419+Hamburg";
 
 const EMBED_URL =
-  "https://maps.google.com/maps?q=53.6648918,9.9995532&z=17&output=embed&hl=de";
+  "https://maps.google.com/maps?q=Diekmoorweg+34,+22419+Hamburg&z=16&output=embed&hl=de";
 
 export function MapSection() {
   return (
@@ -15,7 +15,7 @@ export function MapSection() {
         <FadeIn direction="none" className="relative min-h-[320px] lg:min-h-[420px]">
           <iframe
             src={EMBED_URL}
-            title="Hawa's Pizza – Standort Hamburg"
+            title="Deine Pizza – Standort Hamburg"
             loading="lazy"
             allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
@@ -35,10 +35,10 @@ export function MapSection() {
               Wo wir sind
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter leading-tight">
-              Hawa's Pizza
+              Deine Pizza
               <br />
               <span className="font-serif italic font-normal text-background/70">
-                Hamburg-Barmbek
+                Hamburg-Langenhorn
               </span>
             </h2>
           </div>
@@ -49,7 +49,7 @@ export function MapSection() {
               <p className="text-background font-semibold text-xs uppercase tracking-wider mb-2">
                 Adresse
               </p>
-              <p>Tarpenring 2</p>
+              <p>Diekmoorweg 34</p>
               <p>22419 Hamburg</p>
               <a
                 href={MAPS_URL}
@@ -72,13 +72,13 @@ export function MapSection() {
               <p>Di – So&ensp;17:00 – 22:30</p>
               <p>Montags Ruhetag</p>
               <a
-                href="tel:04079167456"
+                href="tel:0401234567"
                 className="inline-flex items-center gap-1.5 mt-3 text-background/90 hover:text-background underline underline-offset-4 decoration-background/30 hover:decoration-background transition-colors text-xs font-medium"
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                040-79167456
+                040 1234567
               </a>
             </div>
           </div>
