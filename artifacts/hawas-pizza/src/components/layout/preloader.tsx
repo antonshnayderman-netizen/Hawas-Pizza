@@ -3,8 +3,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { startFrameLoading } from "@/lib/hero-frames";
 import logoUrl from "@assets/deine-pizza-logo.png";
 
-/** Harte Obergrenze: danach geht die Seite auf, egal wie das Netz gerade ist. */
-const MAX_WAIT_MS = 3000;
+/**
+ * Harte Obergrenze: danach geht die Seite auf, egal wie das Netz gerade ist.
+ * Bewusst grosszuegiger als die urspruenglichen 3s — die Frames sind seit dem
+ * Hochkant-Zuschnitt deutlich schaerfer und damit groesser, und eine scharfe
+ * Pizza ist hier mehr wert als eine Sekunde frueher aufzudecken.
+ */
+const MAX_WAIT_MS = 6000;
 /** Untergrenze, damit der Screen bei Cache-Treffern nicht nur kurz aufblitzt. */
 const MIN_SHOW_MS = 900;
 const SLICES = 8;

@@ -6,7 +6,14 @@
  */
 
 const DESKTOP_FRAMES = { dir: "hero-frames", count: 151 };
-const MOBILE_FRAMES = { dir: "hero-frames-mobile", count: 76 };
+/**
+ * Hochkant zugeschnitten (568×1010 aus der 1920×1010-Quelle) statt verkleinert.
+ * Auf einem Hochkant-Display zeigt der Canvas vom Querformat nur die mittleren
+ * ~26 % — der Rest wurde geladen und weggeworfen, das Sichtbare dafür 4-fach
+ * hochskaliert. Der Zuschnitt behält genau den sichtbaren Bereich in voller
+ * Auflösung.
+ */
+const MOBILE_FRAMES = { dir: "hero-frames-mobile", count: 121 };
 
 /**
  * Einmal beim Laden des Moduls festgelegt. Ein Wechsel mitten im Scrollen
