@@ -1,17 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 
-const FRAME_COUNT = 151;
 const LERP = 0.12;
 
-// On mobile we skip the canvas entirely to save ~15 MB of frame downloads
-function isMobileDevice() {
+/**
+ * Zwei Bildfolgen für dieselbe Drehung. Mobil wird jedes zweite Frame in
+ * kleinerer Auflösung geladen: 2,8 MB statt 15 MB, dafür minimal weicher —
+ * hinter der Abdunkelung des Heros faellt das nicht auf, ein Standbild dagegen
+ * schon.
+ */
+const DESKTOP_FRAMES = { dir: "hero-frames", count: 151 };
+const MOBILE_FRAMES = { dir: "hero-frames-mobile", count: 76 };
+
+function isMobileViewport() {
   return typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches;
 }
 
-function frameUrl(base: string, index: number) {
+function frameUrl(base: string, dir: string, index: number) {
   const n = String(index).padStart(3, "0");
-  return `${base}hero-frames/frame-${n}.jpg`;
+  return `${base}${dir}/frame-${n}.jpg`;
 }
 
 interface HeroCanvasProps {
@@ -20,9 +27,11 @@ interface HeroCanvasProps {
 
 export function HeroCanvas({ targetRef }: HeroCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imagesRef = useRef<(HTMLImageElement | null)[]>(new Array(FRAME_COUNT).fill(null));
+  // Beim Mounten festgelegt: ein Wechsel der Bildfolge mitten im Scrollen
+  // wuerde alle bereits geladenen Frames entwerten.
+  const frames = useRef(isMobileViewport() ? MOBILE_FRAMES : DESKTOP_FRAMES).current;
+  const imagesRef = useRef<(HTMLImageElement | null)[]>(new Array(frames.count).fill(null));
   const [firstFrameReady, setFirstFrameReady] = useState(false);
-  const isMobile = useRef(isMobileDevice());
 
   const targetFrameRef = useRef(1);
   const displayFrameRef = useRef(1);
@@ -34,30 +43,26 @@ export function HeroCanvas({ targetRef }: HeroCanvasProps) {
     offset: ["start start", "end start"],
   });
 
-  // Load first frame immediately, rest lazily
+  // Erstes Frame sofort, der Rest in Leerlauf-Häppchen
   useEffect(() => {
-    if (isMobile.current) return;
-
     const base = import.meta.env.BASE_URL;
 
-    // Frame 1: eager
     const first = new Image();
-    first.src = frameUrl(base, 1);
+    first.src = frameUrl(base, frames.dir, 1);
     first.onload = () => {
       imagesRef.current[0] = first;
       setFirstFrameReady(true);
 
-      // Load the rest in background using requestIdleCallback batches
       let i = 2;
       function loadBatch(deadline?: IdleDeadline) {
-        while (i <= FRAME_COUNT && (!deadline || deadline.timeRemaining() > 0)) {
+        while (i <= frames.count && (!deadline || deadline.timeRemaining() > 0)) {
           const idx = i - 1;
           const img = new Image();
-          img.src = frameUrl(base, i);
+          img.src = frameUrl(base, frames.dir, i);
           img.onload = () => { imagesRef.current[idx] = img; };
           i++;
         }
-        if (i <= FRAME_COUNT) {
+        if (i <= frames.count) {
           if ("requestIdleCallback" in window) {
             (window as any).requestIdleCallback(loadBatch, { timeout: 300 });
           } else {
@@ -72,11 +77,11 @@ export function HeroCanvas({ targetRef }: HeroCanvasProps) {
       }
     };
     imagesRef.current[0] = first;
-  }, []);
+  }, [frames]);
 
-  // Pause RAF when hero section leaves viewport
+  // RAF pausieren, sobald der Hero aus dem Viewport ist
   useEffect(() => {
-    if (isMobile.current || !targetRef.current) return;
+    if (!targetRef.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => { visibleRef.current = entry.isIntersecting; },
       { threshold: 0 }
@@ -88,11 +93,11 @@ export function HeroCanvas({ targetRef }: HeroCanvasProps) {
   const drawIndex = (floatIndex: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const index = Math.min(FRAME_COUNT, Math.max(1, Math.round(floatIndex)));
+    const index = Math.min(frames.count, Math.max(1, Math.round(floatIndex)));
     const img = imagesRef.current[index - 1];
     if (!img || !img.complete || img.naturalWidth === 0) {
-      // Fall back to nearest loaded frame
-      for (let d = 1; d < FRAME_COUNT; d++) {
+      // Auf das naechstliegende bereits geladene Frame zurueckfallen
+      for (let d = 1; d < frames.count; d++) {
         const lo = imagesRef.current[Math.max(0, index - 1 - d)];
         if (lo?.complete && lo.naturalWidth > 0) { drawImageToCanvas(canvas, lo); return; }
       }
@@ -104,7 +109,7 @@ export function HeroCanvas({ targetRef }: HeroCanvasProps) {
   const drawImageToCanvas = (canvas: HTMLCanvasElement, img: HTMLImageElement) => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2); // cap at 2x
+    const dpr = Math.min(window.devicePixelRatio || 1, 2); // bei 2x deckeln
     const width = canvas.parentElement?.clientWidth ?? window.innerWidth;
     const height = canvas.parentElement?.clientHeight ?? window.innerHeight;
     if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
@@ -128,7 +133,7 @@ export function HeroCanvas({ targetRef }: HeroCanvasProps) {
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
   };
 
-  // RAF loop — skips when off-screen
+  // RAF-Schleife — ruht, solange der Hero nicht sichtbar ist
   useEffect(() => {
     if (!firstFrameReady) return;
     const tick = () => {
@@ -146,7 +151,7 @@ export function HeroCanvas({ targetRef }: HeroCanvasProps) {
   }, [firstFrameReady]);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    targetFrameRef.current = Math.min(FRAME_COUNT, Math.max(1, latest * (FRAME_COUNT - 1) + 1));
+    targetFrameRef.current = Math.min(frames.count, Math.max(1, latest * (frames.count - 1) + 1));
   });
 
   useEffect(() => {
@@ -156,8 +161,6 @@ export function HeroCanvas({ targetRef }: HeroCanvasProps) {
     window.addEventListener("resize", handleResize, { passive: true });
     return () => window.removeEventListener("resize", handleResize);
   }, [firstFrameReady]);
-
-  if (isMobile.current) return null;
 
   return <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />;
 }

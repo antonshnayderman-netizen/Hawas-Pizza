@@ -24,16 +24,17 @@ export function HeroSection() {
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center pt-20">
         {/* Scroll-scrubbed frame sequence — canvas on desktop, poster on mobile */}
         <div className="absolute inset-0 z-0">
-          {/* Mobile fallback: static poster image, no 15 MB frame download */}
+          {/* Poster liegt unter dem Canvas und fuellt nur die Luecke, bis das
+              erste Frame geladen ist — sonst waere der Hero kurz leer. */}
           <img
             src={posterUrl}
             alt=""
             fetchPriority="high"
             decoding="async"
-            className="absolute inset-0 w-full h-full object-cover md:hidden"
+            className="absolute inset-0 w-full h-full object-cover"
           />
-          {/* Desktop: scroll-scrubbed canvas */}
-          <div className="hidden md:block absolute inset-0">
+          {/* Scroll-gescrubbte Bildfolge, mobil in der kleineren Variante */}
+          <div className="absolute inset-0">
             <HeroCanvas targetRef={sectionRef} />
           </div>
           <div className="absolute inset-0 bg-foreground/20 mix-blend-multiply" />
