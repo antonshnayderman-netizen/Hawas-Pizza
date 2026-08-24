@@ -1,10 +1,12 @@
-# Hawas Pizza
+# Deine Pizza
 
-A pizza ordering web app with a React/Vite frontend and Express API backend.
+White-Label-Demo einer Pizzeria-Website (React/Vite-Frontend, Express-API-Backend).
+Wird an Interessenten verschickt — es dürfen keine Spuren des ursprünglichen
+Ladens zurückkommen, und alle Bilder tragen den Hinweis "AI generated".
 
 ## Run & Operate
 
-- **Hawas Pizza** workflow — starts the frontend on port 3000 (`PORT=3000 API_PORT=5000 pnpm --filter @workspace/hawas-pizza run dev`)
+- **Deine Pizza** workflow — starts the frontend on port 3000 (`PORT=3000 API_PORT=5000 pnpm --filter @workspace/hawas-pizza run dev`)
 - **API Server** workflow — starts the backend on port 5000 (`PORT=5000 pnpm --filter @workspace/api-server run dev`)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages

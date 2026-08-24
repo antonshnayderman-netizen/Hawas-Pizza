@@ -22,7 +22,7 @@ args = "API Server"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Hawas Pizza"
+args = "Deine Pizza"
 
 [[workflows.workflow]]
 name = "API Server"
@@ -37,7 +37,7 @@ waitForPort = 5000
 outputType = "console"
 
 [[workflows.workflow]]
-name = "Hawas Pizza"
+name = "Deine Pizza"
 author = "agent"
 
 [[workflows.workflow.tasks]]
