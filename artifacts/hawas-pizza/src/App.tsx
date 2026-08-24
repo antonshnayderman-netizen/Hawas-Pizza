@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import Home from '@/pages/home';
+import { startSmoothScroll } from '@/lib/smooth-scroll';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 
 const queryClient = new QueryClient();
@@ -17,6 +19,8 @@ function Router() {
 }
 
 function App() {
+  useEffect(startSmoothScroll, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

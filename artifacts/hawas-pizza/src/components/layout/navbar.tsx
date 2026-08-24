@@ -2,17 +2,13 @@ import { useScroll } from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/premium-button";
 import { scrollToMenu } from "@/lib/order";
+import { scrollToId } from "@/lib/smooth-scroll";
 import logoUrl from "@assets/deine-pizza-logo.png";
 
 export function Navbar() {
   const { scrolled } = useScroll();
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const scrollToSection = scrollToId;
 
   return (
     <header

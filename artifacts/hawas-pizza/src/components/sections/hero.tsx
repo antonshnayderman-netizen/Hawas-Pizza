@@ -109,9 +109,7 @@ export function HeroSection() {
                 <Button
                   size="lg"
                   className="bg-white text-black hover:bg-white/90"
-                  onClick={() => {
-                    document.getElementById("menu")?.scrollIntoView({ behavior: "smooth" });
-                  }}
+                  onClick={scrollToMenu}
                 >
                   Speisekarte entdecken
                 </Button>
