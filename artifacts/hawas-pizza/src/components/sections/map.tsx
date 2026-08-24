@@ -8,7 +8,10 @@ const EMBED_URL =
 
 export function MapSection() {
   return (
-    <section className="bg-background border-b border-border/40">
+    // overflow-hidden: Das Info-Panel fliegt per FadeIn von rechts ein und steht
+    // bis dahin 40px ausserhalb des Viewports — ohne Clipping erzeugt das beim
+    // Scrollen einen weissen Balken am rechten Rand.
+    <section className="bg-background border-b border-border/40 overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[420px]">
 
         {/* Map iframe */}

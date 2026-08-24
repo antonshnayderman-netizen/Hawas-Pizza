@@ -118,6 +118,13 @@
     @apply border-border;
   }
   
+  /* Sicherheitsnetz gegen seitlichen Ueberlauf durch von rechts einfliegende
+     FadeIns. `clip` statt `hidden`, weil `hidden` einen Scroll-Container
+     erzeugt und damit das sticky Hero kaputtmacht. */
+  html {
+    overflow-x: clip;
+  }
+
   body {
     @apply font-sans antialiased bg-background text-foreground selection:bg-primary/20 selection:text-primary;
     text-rendering: optimizeLegibility;

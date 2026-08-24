@@ -37,9 +37,11 @@ export function HeroSection() {
             <HeroCanvas targetRef={sectionRef} />
           </div>
           <div className="absolute inset-0 bg-foreground/20 mix-blend-multiply" />
-          {/* Weicher Übergang zur weißen Sektion darunter – bewusst auf das
-              untere Viertel begrenzt, damit die Pizza nicht ausgewaschen wird. */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_top,hsl(var(--background))_0%,hsl(var(--background)/0.72)_6%,hsl(var(--background)/0.32)_13%,hsl(var(--background)/0.10)_20%,transparent_30%)]" />
+          {/* Übergang zur weißen Sektion darunter. Nur die unterste Kante ist
+              voll deckend, damit die Naht unsichtbar bleibt; danach fällt die
+              Deckkraft über viele Stützstellen sehr schnell ab, sodass das
+              Bild kräftig bleibt und trotzdem kein Bandingpunkt entsteht. */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_top,hsl(var(--background))_0%,hsl(var(--background)/0.86)_2%,hsl(var(--background)/0.58)_5%,hsl(var(--background)/0.36)_9%,hsl(var(--background)/0.20)_14%,hsl(var(--background)/0.10)_20%,hsl(var(--background)/0.04)_27%,transparent_36%)]" />
         </div>
 
         {/* Sitzt im weißen Verlauf – braucht daher mehr Deckkraft als sonst. */}
