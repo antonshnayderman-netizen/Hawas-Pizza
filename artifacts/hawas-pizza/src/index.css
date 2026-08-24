@@ -118,12 +118,10 @@
     @apply border-border;
   }
   
-  /* Sicherheitsnetz gegen seitlichen Ueberlauf durch von rechts einfliegende
-     FadeIns. `clip` statt `hidden`, weil `hidden` einen Scroll-Container
-     erzeugt und damit das sticky Hero kaputtmacht. */
-  html {
-    overflow-x: clip;
-  }
+  /* Kein overflow-x auf html/body: auf iOS Safari bricht das `position: sticky`
+     der Hero-Sektion, der Scroll-Effekt faellt dort dann komplett aus.
+     Seitlichen Ueberlauf stattdessen dort clippen, wo er entsteht — siehe
+     overflow-hidden in map.tsx und philosophy.tsx. */
 
   /* Lenis (sanftes Scrollen). Bewusst nur diese Regeln statt des kompletten
      lenis.css: dessen `.lenis-stopped { overflow: hidden }` wuerde einen
