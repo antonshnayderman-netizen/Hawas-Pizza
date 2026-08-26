@@ -45,8 +45,8 @@ export function HeroSection() {
           <div className="absolute inset-0 bg-[linear-gradient(to_top,hsl(var(--background))_0%,hsl(var(--background)/0.86)_2%,hsl(var(--background)/0.58)_5%,hsl(var(--background)/0.36)_9%,hsl(var(--background)/0.20)_14%,hsl(var(--background)/0.10)_20%,hsl(var(--background)/0.04)_27%,transparent_36%)]" />
         </div>
 
-        {/* Sitzt im weißen Verlauf – braucht daher mehr Deckkraft als sonst. */}
-        <AiBadge className="bottom-4 right-5 z-30 bg-black/70" />
+        {/* Sitzt unten im weißen Verlauf, nicht auf dem Bild – daher dunkel. */}
+        <AiBadge tone="dark" className="bottom-4 right-5 z-30" />
 
         <motion.div
           style={{ opacity: contentOpacity, y: contentY }}
